@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <script>
+            function set_height() {
+                Scratch.set_header_height(40);
+            }
+
+            function change_url() {
+                Scratch.load_url(document.getElementById("textbar").value);
+            }
+
+            function append_page() {
+                Scratch.append_page();
+            }
+        </script>
+    </head>
+    <body onload="set_height()">
+        <button onclick="Scratch.set_page_focus(0)">page 1</button>
+        <button onclick="Scratch.set_page_focus(2)">page 3</button>
+        <input id="textbar" type="text" value="URL">
+        <button onclick="change_url()">Go to page</button>
+        <button onclick="append_page()">Append page</button>
+    </body>
+</body>
