@@ -39,3 +39,14 @@ void JSInt::append_page() {
 void JSInt::remove_page(int id) {
     page_remove(id);
 }
+
+// Interface function for going forward in history
+void JSInt::go_forward() {
+    page_history_go_forward();
+}
+
+// Interface function for going backward in history
+void JSInt::go_back() {
+    page_history_go_back();
+}
+

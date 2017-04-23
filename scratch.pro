@@ -1,4 +1,6 @@
-QT += webkit
+QT += webengine
+QT += webenginewidgets
+QT += websockets
 
 SOURCES += \
     main.cpp \

@@ -1,10 +1,13 @@
 #include "spage.h"
 #include "swindow.h"
+
 #include <iostream>
+#include <QWebEngineHistory>
 
 // Global pages array
 SPage * SPAGES[SPAGES_LIM];
 int n_spages = 0;
+int current_id = 0;
 
 // Get page index with id
 int page_get(int id) {
@@ -35,7 +38,7 @@ bool page_append(bool visible) {
     if(n_spages == SPAGES_LIM)
         return false;
 
-    SPAGES[n_spages] = new SPage(visible, n_spages);
+    SPAGES[n_spages] = new SPage(visible, current_id++);
 
     // Append to window
     window->add_page(SPAGES[n_spages]);
@@ -90,22 +93,51 @@ void page_load_url(QString url) {
     SPAGES[page_get_focus()]->load_url(url);
 }
 
-// Load URL on page and update title
+// Go forward in history on current page
+void page_history_go_forward() {
+    SPAGES[page_get_focus()]->history_go_forward();
+}
+
+// Go backward in history on current page
+void page_history_go_back() {
+    SPAGES[page_get_focus()]->history_go_back();
+}
+
+// Load URL on page
 void SPage::load_url(QString url) {
     load(QUrl(url));
 }
 
 // Init page
 SPage::SPage(bool visible, int id) {
+    load(QUrl("http://localhost/eatit-proto"));
+
     // Set whether visible or not
     set_visibility(visible);
-    load(QUrl("http://google.se"));
+
+    // Add signals
+    connect(this, SIGNAL(loadFinished(bool)), this, SLOT(update_title(bool)));
 
     this->id = id;
+}
+
+// Update title of page
+void SPage::update_title(bool) {
+    window()->setWindowTitle(title());
 }
 
 // Set visibilty of page
 void SPage::set_visibility(bool visible) {
     this->visible = visible;
     setVisible(visible);
+}
+
+// Go forward in history
+void SPage::history_go_forward() {
+    page()->history()->forward();
+}
+
+// Go back in history
+void SPage::history_go_back() {
+    page()->history()->back();
 }

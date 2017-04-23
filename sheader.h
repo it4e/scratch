@@ -3,11 +3,10 @@
 
 #define HEADER_DEFAULT_STYLE_PATH "/home/timmy/workspace/scratch/header.html"
 
-#include <QtWebKit>
-#include <QWebView>
+#include <QWebEngineView>
 #include <QObject>
 
-class SHeader : public QWebView {
+class SHeader : public QWebEngineView {
     Q_OBJECT
 
     public:

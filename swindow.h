@@ -1,9 +1,9 @@
 #ifndef SWINDOW_H
 #define SWINDOW_H
 
-#include <QtWebKit>
 #include <QWidget>
-#include <QVBoxLayout>
+#include <QtWidgets/QWidget>
+#include <QtWidgets/QVBoxLayout>
 #include "spage.h"
 
 class SWindow : public QWidget {

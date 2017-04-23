@@ -1,7 +1,6 @@
 #ifndef JSINT_H
 #define JSINT_H
 
-#include <QtWebKit>
 #include <QObject>
 
 class JSInt : public QObject {
@@ -19,7 +18,8 @@ class JSInt : public QObject {
         void append_page();
         void remove_page(int id);
         void load_url(QString url);
-
+        void go_back();
+        void go_forward();
 };
 
 extern JSInt * js_interface;

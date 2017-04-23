@@ -1,7 +1,19 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <script src="qrc:///qtwebchannel/qwebchannel.js"></script>
+        <style>
+            * {box-sizing: border-box;}
+            html, body {width: 100%; height: 100%; margin: 0; padding: 0;}
+            body {border-bottom: 1px solid red; padding: 10px;}
+        </style>
         <script>
+        var Scratch;
+        new QWebChannel(qt.webChannelTransport, function (channel) {
+                    // now you retrieve your object
+                    Scratch = channel.objects.Scratch;
+                    set_height();
+         });
             function set_height() {
                 Scratch.set_header_height(40);
             }
@@ -13,13 +25,16 @@
             function append_page() {
                 Scratch.append_page();
             }
+
         </script>
     </head>
-    <body onload="set_height()">
+    <body>
         <button onclick="Scratch.set_page_focus(0)">page 1</button>
         <button onclick="Scratch.set_page_focus(2)">page 3</button>
         <input id="textbar" type="text" value="URL">
         <button onclick="change_url()">Go to page</button>
         <button onclick="append_page()">Append page</button>
+        <button onclick="Scratch.go_forward()">Go forward</button>
+        <button onclick="Scratch.go_back()">Go back</button>
     </body>
 </body>

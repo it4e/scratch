@@ -2,6 +2,8 @@
 #include "jsint.h"
 #include <iostream>
 
+#include <QWebChannel>
+
 // Global header
 SHeader * s_header;
 
@@ -13,7 +15,7 @@ SHeader::SHeader() {
 
 void SHeader::init() {
     // Initialize JS interface
-    QObject::connect(page()->mainFrame(), SIGNAL(javaScriptWindowObjectCleared()), this, SLOT(init_js_interface()));
+    init_js_interface();
 
     // Get HTML style and load it
     QUrl path = QUrl::fromLocalFile(HEADER_DEFAULT_STYLE_PATH);
@@ -29,7 +31,11 @@ void SHeader::update_height() {
 
 // Initalize JS interface
 void SHeader::init_js_interface() {
-    page()->mainFrame()->addToJavaScriptWindowObject("Scratch", js_interface);
+    //page()->addToJavaScriptWindowObject("Scratch", js_interface);
+    QWebChannel * channel = new QWebChannel(this);
+    page()->setWebChannel(channel);
+
+    channel->registerObject("Scratch", js_interface);
 }
 
 // Set height of header
