@@ -1,40 +1,48 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <script src="qrc:///qtwebchannel/qwebchannel.js"></script>
+        <script src="/home/timmy/workspace/browser/header.js"></script>
+        <script>
+            function browser_start() {
+                var id;
+                browser.new_tab();
+            }
+        </script>
         <style>
             * {box-sizing: border-box;}
-            html, body {width: 100%; height: 100%; margin: 0; padding: 0;}
-            body {border-bottom: 1px solid red; padding: 10px;}
+            html, body {height: 100%; margin: 0; padding: 0;}
+            body {border-bottom: 1px solid red;}
+
+            ul {list-style: none; margin: 0; padding: 0;}
+            ul li {float: left; margin: 0; padding: 0; margin-right: 20px;}
+            ul li div {padding: 5px; background: green;}
+
+            input {float: left;}
         </style>
-        <script>
-        var Scratch;
-        new QWebChannel(qt.webChannelTransport, function (channel) {
-                    // now you retrieve your object
-                    Scratch = channel.objects.Scratch;
-                    set_height();
-         });
-            function set_height() {
-                Scratch.set_header_height(40);
-            }
-
-            function change_url() {
-                Scratch.load_url(document.getElementById("textbar").value);
-            }
-
-            function append_page() {
-                Scratch.append_page();
-            }
-
-        </script>
     </head>
     <body>
-        <button onclick="Scratch.set_page_focus(0)">page 1</button>
-        <button onclick="Scratch.set_page_focus(2)">page 3</button>
-        <input id="textbar" type="text" value="URL">
-        <button onclick="change_url()">Go to page</button>
-        <button onclick="append_page()">Append page</button>
-        <button onclick="Scratch.go_forward()">Go forward</button>
-        <button onclick="Scratch.go_back()">Go back</button>
+        <div id="B_BACK">
+            <----
+        </div>
+        <div id="B_FORWARD">
+            ---->
+        </div>
+        <ul id="B_TABS" class="B_TAB">
+            <li>
+                <div data-id="0" class="B_TAB">Page 1</div>
+            </li>
+            <li>
+                <div data-id="1" class="B_TAB">Page 2</div>
+            </li>
+            <li>
+                <div onclick="browser.switch_tab(2)" class="tab">Page 3</div>
+            </li>
+            <li>
+                <div onclick="browser.switch_tab(3)" class="tab">Page 4</div>
+            </li>
+        </ul>
+        <input type="text" id="B_URLFIELD">
+        <input type="submit" id="B_VISIT">
+        <input type="submit" value="reload" id="B_RELOAD">
     </body>
-</body>
+</html>

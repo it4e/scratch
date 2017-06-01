@@ -1,6 +1,11 @@
-#include "scratch.h"
+#include <iostream>
+#include "browser.h"
+
+using namespace std;
 
 int main(int argc, char ** argv) {
-    Scratch app(argc, argv);
-    return app.exec();
+    Browser browser(argc, argv);
+
+    cout << "Starting application..." << endl;
+    return browser.exec();
 }
